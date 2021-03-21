@@ -7,45 +7,46 @@ using namespace std;
 void Gauss(double **&, int, int, double *&);
 void Accuracy(double **,double *&, int,int,double **);
 void Det(double **,int);
-void Inverse_Matrix(double **,int);                      // Обратная матрица
+void Inverse_Matrix(double **,int);                      // РћР±СЂР°С‚РЅР°СЏ РјР°С‚СЂРёС†Р°
 
 void Print2(double **,int , int);
 void Print(double **,double*, int);
 void Select(double**&,int ,int);             
-void NewMatrix(double**&,int ,int);            // Выделение памяти для матрицы
+void NewMatrix(double**&,int ,int);            // Р’С‹РґРµР»РµРЅРёРµ РїР°РјСЏС‚Рё РґР»СЏ РјР°С‚СЂРёС†С‹
 void DelMatrix(double**&, int, int);
-void Copy(double**&,double** ,int , int);     // Копирование массива
+void Copy(double**&,double** ,int , int);     // РљРѕРїРёСЂРѕРІР°РЅРёРµ РјР°СЃСЃРёРІР°
                                           
-void Checking_File();                       // Проверка файла
+void Checking_File();                       // РџСЂРѕРІРµСЂРєР° С„Р°Р№Р»Р°
 
 int main()
 {
     system("chcp 1251");  system("cls");
-    Checking_File(); // Проверка на наличие файла
+    Checking_File(); // РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ С„Р°Р№Р»Р°
 
-    int N, score = 0;
+    int N;
 
-    cout << "Введите размер матрицы.(Целое число) ";
+    cout << "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ РјР°С‚СЂРёС†С‹.(Р¦РµР»РѕРµ С‡РёСЃР»Рѕ) ";
     cin>>N; int M=N+1;
 
-    double **A,**A1;    // Матрица коэфициентов (квадратная) 
-    double *x = new double[N];   // Решение
+    double **A,**A1;    // РњР°С‚СЂРёС†Р° РєРѕСЌС„РёС†РёРµРЅС‚РѕРІ (РєРІР°РґСЂР°С‚РЅР°СЏ) 
+    double *x = new double[N];   // Р РµС€РµРЅРёРµ
     NewMatrix(A, N, M);
     Select(A, N, M);
     Print2(A,N, M);
-    NewMatrix(A1, N, M);  // Создание копии матрицы;
+    NewMatrix(A1, N, M);  // РЎРѕР·РґР°РЅРёРµ РєРѕРїРёРё РјР°С‚СЂРёС†С‹;
     Copy(A, A1, N, M);
 
-    Accuracy(A, x, N, M, A1);   // Метод Гаусса + вычисление точности
-    Copy(A1, A, N, M);     // Востоновим  матрицу A после решения СЛАУ
-    
     Det(A,N);
-    Copy(A1, A, N, M);    // Востоновим  матрицу A после  нахождения определителя
+    Copy(A1, A, N, M);    // Р’РѕСЃС‚РѕРЅРѕРІРёРј  РјР°С‚СЂРёС†Сѓ A РїРѕСЃР»Рµ  РЅР°С…РѕР¶РґРµРЅРёСЏ РѕРїСЂРµРґРµР»РёС‚РµР»СЏ
+   
+    Accuracy(A, x, N, M, A1);   // РњРµС‚РѕРґ Р“Р°СѓСЃСЃР° + РІС‹С‡РёСЃР»РµРЅРёРµ С‚РѕС‡РЅРѕСЃС‚Рё
+    Copy(A1, A, N, M);     // Р’РѕСЃС‚РѕРЅРѕРІРёРј  РјР°С‚СЂРёС†Сѓ A РїРѕСЃР»Рµ СЂРµС€РµРЅРёСЏ РЎР›РђРЈ
+    
+    Inverse_Matrix(A,N);  // РћР±СЂР°С‚РЅР°СЏ РјР°С‚СЂРёС†Р°
 
-    Inverse_Matrix(A,N);  // Обратная матрица
+   // Print2(A,N, M);
 
-    Print2(A,N, M);
-
+   
     DelMatrix(A1, N, M);
     DelMatrix(A, N, M);
     delete [] x;  x=nullptr;
@@ -57,12 +58,12 @@ void Select(double**& a, int n, int m)
 {
     cout<<"\n  _____________________________________________";
     cout<<"\n |                                             ||";
-    cout<<"\n |  ** Выберите тип матрицы для задания: **    ||";
-    cout<<"\n |  1.) Матрица, заданная явно                 ||";
-    cout<<"\n |  2.) Матрица, заданная случайным образом    ||";
-    cout<<"\n |  3.) Единичная матрица                      ||";
-    cout<<"\n |  4.) Нулевая матрица                        ||";
-    cout<<"\n |  5.) Матрица Гильберта                      ||";
+    cout<<"\n |  ** Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї РјР°С‚СЂРёС†С‹ РґР»СЏ Р·Р°РґР°РЅРёСЏ: **    ||";
+    cout<<"\n |  1.) РњР°С‚СЂРёС†Р°, Р·Р°РґР°РЅРЅР°СЏ СЏРІРЅРѕ                 ||";
+    cout<<"\n |  2.) РњР°С‚СЂРёС†Р°, Р·Р°РґР°РЅРЅР°СЏ СЃР»СѓС‡Р°Р№РЅС‹Рј РѕР±СЂР°Р·РѕРј    ||";
+    cout<<"\n |  3.) Р•РґРёРЅРёС‡РЅР°СЏ РјР°С‚СЂРёС†Р°                      ||";
+    cout<<"\n |  4.) РќСѓР»РµРІР°СЏ РјР°С‚СЂРёС†Р°                        ||";
+    cout<<"\n |  5.) РњР°С‚СЂРёС†Р° Р“РёР»СЊР±РµСЂС‚Р°                      ||";
     cout<<"\n |_____________________________________________||";
     cout<<"\n > ";
     int point;
@@ -71,7 +72,7 @@ void Select(double**& a, int n, int m)
     switch(point) {
         case 1:
         {
-            fstream F("arr.txt", ios::in);//Матрица из файла
+            fstream F("arr.txt", ios::in);//РњР°С‚СЂРёС†Р° РёР· С„Р°Р№Р»Р°
             for (int i = 0; i < n; i++)
               for (int j = 0; j < m; j++)
                 F >> a[i][j];
@@ -100,7 +101,7 @@ void Select(double**& a, int n, int m)
 
         case 4:
         {
-           for (int i = 0; i < n; i++)//Вырожденная матрица
+           for (int i = 0; i < n; i++)//Р’С‹СЂРѕР¶РґРµРЅРЅР°СЏ РјР°С‚СЂРёС†Р°
             for (int j = 0; j < m; j++)
                 a[i][j] = 0;
             break;
@@ -108,7 +109,7 @@ void Select(double**& a, int n, int m)
 
         case 5:
         {
-        for (int i = 0; i < n; i++)    //Матрица Гильберта 
+        for (int i = 0; i < n; i++)    //РњР°С‚СЂРёС†Р° Р“РёР»СЊР±РµСЂС‚Р° 
             for (int j = 0; j < m; j++)
                 a[i][j] = 1./ (i + j + 1);
         break;
@@ -129,11 +130,11 @@ void Gauss(double **&a, int n, int m, double *&x)
      
   double max;
   int k, index;
-  const double eps = 0.000001;  // точность
+  const double eps = 0.000001;  // С‚РѕС‡РЅРѕСЃС‚СЊ
   k = 0;
   while (k < n) 
   {
-    // Поиск строки с максимальным a[i][k] (элементом по модулю)
+    // РџРѕРёСЃРє СЃС‚СЂРѕРєРё СЃ РјР°РєСЃРёРјР°Р»СЊРЅС‹Рј a[i][k] (СЌР»РµРјРµРЅС‚РѕРј РїРѕ РјРѕРґСѓР»СЋ)
     max = abs(a[k][k]);
     index = k;
     for (int i = k + 1; i < n; i++) 
@@ -144,12 +145,12 @@ void Gauss(double **&a, int n, int m, double *&x)
         index = i;
       }
     }
-    // Перестановка строк
+    // РџРµСЂРµСЃС‚Р°РЅРѕРІРєР° СЃС‚СЂРѕРє
     if (max < eps) 
     {
-      // нет ненулевых диагональных элементов
-      cout << "Решение получить невозможно из-за нулевого столбца ";
-      cout << index << " матрицы A" << endl;
+      // РЅРµС‚ РЅРµРЅСѓР»РµРІС‹С… РґРёР°РіРѕРЅР°Р»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
+      cout << "Р РµС€РµРЅРёРµ РїРѕР»СѓС‡РёС‚СЊ РЅРµРІРѕР·РјРѕР¶РЅРѕ РёР·-Р·Р° РЅСѓР»РµРІРѕРіРѕ СЃС‚РѕР»Р±С†Р° ";
+      cout << index << " РјР°С‚СЂРёС†С‹ A" << endl;
       system("pause");
       exit(0);
     }
@@ -162,29 +163,30 @@ void Gauss(double **&a, int n, int m, double *&x)
     double temp = y[k];
     y[k] = y[index];
     y[index] = temp;
-    // Нормализация уравнений
+    // РќРѕСЂРјР°Р»РёР·Р°С†РёСЏ СѓСЂР°РІРЅРµРЅРёР№
     for (int i = k; i < n; i++) 
     {
       double temp = a[i][k];
-      if (abs(temp) < eps) continue; // для нулевого коэффициента пропустить
+      if (abs(temp) < eps) continue; // РґР»СЏ РЅСѓР»РµРІРѕРіРѕ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РїСЂРѕРїСѓСЃС‚РёС‚СЊ
       for (int j = 0; j < n; j++) 
         a[i][j] = a[i][j] / temp;
       y[i] = y[i] / temp;
-      if (i == k)  continue; // уравнение не вычитать само из себя
+      if (i == k)  continue; // СѓСЂР°РІРЅРµРЅРёРµ РЅРµ РІС‹С‡РёС‚Р°С‚СЊ СЃР°РјРѕ РёР· СЃРµР±СЏ
       for (int j = 0; j < n; j++)
         a[i][j] = a[i][j] - a[k][j];
       y[i] = y[i] - y[k];
     }
     k++;
   }
-  // обратная подстановка
+  // РѕР±СЂР°С‚РЅР°СЏ РїРѕРґСЃС‚Р°РЅРѕРІРєР°
   for (k = n - 1; k >= 0; k--)
   {
     x[k] = y[k];
     for (int i = 0; i < k; i++)
       y[i] = y[i] - a[i][k] * x[k];
   }
-  cout<<endl;  // Вывлод решения.
+
+  cout<<endl;  // Р’С‹РІР»РѕРґ СЂРµС€РµРЅРёСЏ.
   for (int i = 0; i < n; i++) 
     cout << "x[" << i << "]=" << x[i] << endl;
     delete [] y;
@@ -205,7 +207,7 @@ void Accuracy(double **a,double *&x, int n,int m,double **a1)
         if (fabs(a1[i][n] - s) > epsilon) 
             epsilon = fabs(a1[i][n] - s); 
     }
-    cout<<"\nDelta:  "<<epsilon<<" (Погрешность)"<<endl;
+    cout<<"\nDelta:  "<<epsilon<<" (РџРѕРіСЂРµС€РЅРѕСЃС‚СЊ)"<<endl;
 }
 
 void Det(double **a,int n)
@@ -249,7 +251,7 @@ void Det(double **a,int n)
          }
     }
 
-    cout<<"\n Определитель= "<<det<<endl;
+    cout<<"\n РћРїСЂРµРґРµР»РёС‚РµР»СЊ= "<<det<<endl;
 }
 
 void Inverse_Matrix(double **a1,int N) 
@@ -263,7 +265,7 @@ void Inverse_Matrix(double **a1,int N)
   
     for (int i = 0 ; i < N; ++i) {
         for (int j = N; j < M; ++j) 
-        {                                 //Создаю с боку еденичную
+        {                                 //РЎРѕР·РґР°СЋ СЃ Р±РѕРєСѓ РµРґРµРЅРёС‡РЅСѓСЋ
             a[i][j]=0;
             if(j-i==N) a[i][j]=1;
         }
@@ -272,7 +274,7 @@ void Inverse_Matrix(double **a1,int N)
 
     for (int i = 0; i < N; ++i) 
     {
-        bool flag = false; // Проверка на ступенчатость, треугольную матрицу
+        bool flag = false; // РџСЂРѕРІРµСЂРєР° РЅР° СЃС‚СѓРїРµРЅС‡Р°С‚РѕСЃС‚СЊ, С‚СЂРµСѓРіРѕР»СЊРЅСѓСЋ РјР°С‚СЂРёС†Сѓ
         if (a[i][i] == 0) 
         {
             flag = true;
@@ -323,6 +325,7 @@ void Inverse_Matrix(double **a1,int N)
         cout<<a[i][j]<<"  ";
      cout<<endl;
     }
+
 
    DelMatrix(a,N,N);
 }
@@ -378,7 +381,7 @@ void Checking_File()
     F.close();
     if (!k)
     {
-        cout << "Данные файла неверны" << endl;
+        cout << "Р”Р°РЅРЅС‹Рµ С„Р°Р№Р»Р° РЅРµРІРµСЂРЅС‹" << endl;
         system("pause"); exit(1);
     }
 }
