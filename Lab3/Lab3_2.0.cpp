@@ -16,22 +16,22 @@ struct Node {
 void Show()
 {
     if (First == NULL)
-		cout << "\n --**-- Склад пуст --**--" << endl;
+		cout << "\n --**-- РЎРєР»Р°Рґ РїСѓСЃС‚ --**--" << endl;
 	
     else
     {
         Node* temp;
         temp = First;
 
-        cout<<"\n\n__________Ваш склад___________\n\n";
+        cout<<"\n\n__________Р’Р°С€ СЃРєР»Р°Рґ___________\n\n";
         unsigned int k = 1;
 
         while (temp != NULL)
         {
             cout<<k<<".) "; k++;
             cout<< temp->name <<"  ";
-            cout<< temp->volume <<" шт."<<"  ";
-            cout<< temp->cost <<" руб. "<<endl;
+            cout<< temp->volume <<" С€С‚."<<"  ";
+            cout<< temp->cost <<" СЂСѓР±. "<<endl;
 
             temp = temp->next; 
         }
@@ -73,7 +73,7 @@ void Push(string new_name, int new_volume, float new_cost)
 void Pop(Node* temp)
 {
 	if (First == NULL) {
-		cout << "\n * Ваш склад пуст!" << endl;
+		cout << "\n * Р’Р°С€ СЃРєР»Р°Рґ РїСѓСЃС‚!" << endl;
         return;
 	}
 	else {
@@ -81,7 +81,7 @@ void Pop(Node* temp)
         if( First == temp)
          {
             temp = First->next;
-            cout << "\n * Товар " << First->name << " удален." << endl;
+            cout << "\n * РўРѕРІР°СЂ " << First->name << " СѓРґР°Р»РµРЅ." << endl;
             free(First);
             First = temp;
             return;
@@ -95,7 +95,7 @@ void Pop(Node* temp)
             if (temp1->next == temp)
             {
                 temp1->next = temp->next;
-                cout << "\n * Товар " << temp->name << " удален." << endl;
+                cout << "\n * РўРѕРІР°СЂ " << temp->name << " СѓРґР°Р»РµРЅ." << endl;
                 temp->next = NULL;
                 free(temp);
             }
@@ -111,20 +111,20 @@ void Get_Product()
     
     Node* temp = new Node;
 
-    cout<<"\n\nВведите название товара: "; 
+    cout<<"\n\nР’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°: "; 
     cin>> temp->name;
-    cout<<"Введите количество: ";
+    cout<<"Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ";
     cin>> temp->volume;
 
-    Node* temp1 = First; // Однотипный товар
+    Node* temp1 = First; // РћРґРЅРѕС‚РёРїРЅС‹Р№ С‚РѕРІР°СЂ
     while (temp1 != NULL)
     {
         if( temp1->name == temp->name)
         {
             (temp1->volume) += temp->volume;
-            cout<<"\n * Такой товар уже есть на складе, количесво изменено на "<< temp1->volume;
+            cout<<"\n * РўР°РєРѕР№ С‚РѕРІР°СЂ СѓР¶Рµ РµСЃС‚СЊ РЅР° СЃРєР»Р°РґРµ, РєРѕР»РёС‡РµСЃРІРѕ РёР·РјРµРЅРµРЅРѕ РЅР° "<< temp1->volume;
             Show();
-            cout<<"\n Добавить ещё введите 1 >";
+            cout<<"\n Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘ РІРІРµРґРёС‚Рµ 1 >";
             cin>>k; if(k == 1) Get_Product();
 
             return;
@@ -132,13 +132,13 @@ void Get_Product()
         temp1 = temp1->next; 
     }
     
-    cout<<"Введите закупочную цену: ";
+    cout<<"Р’РІРµРґРёС‚Рµ Р·Р°РєСѓРїРѕС‡РЅСѓСЋ С†РµРЅСѓ: ";
     cin>> temp->cost;
 
     Push(temp->name,  temp->volume, temp->cost);
-    cout<<"\n * Товар "<<temp->name<<" добавлен";
+    cout<<"\n * РўРѕРІР°СЂ "<<temp->name<<" РґРѕР±Р°РІР»РµРЅ";
     Show();
-    cout<<"\n Добавить ещё введите 1 >";
+    cout<<"\n Р”РѕР±Р°РІРёС‚СЊ РµС‰С‘ РІРІРµРґРёС‚Рµ 1 >";
     cin>>k; if(k == 1) Get_Product();
 
 
@@ -148,13 +148,13 @@ void Get_Product()
 void Sale(float& sold)
 {
     Show();
-    cout<<"\n 1.) Найти по имени";
-    cout<<"\n 2.) Найти по номеру\n";
+    cout<<"\n 1.) РќР°Р№С‚Рё РїРѕ РёРјРµРЅРё";
+    cout<<"\n 2.) РќР°Р№С‚Рё РїРѕ РЅРѕРјРµСЂСѓ\n";
     cout<<" >"; int k; cin>>k;
 
     if(k == 1)
     {
-        cout<<"\n Введите имя товара: ";
+        cout<<"\n Р’РІРµРґРёС‚Рµ РёРјСЏ С‚РѕРІР°СЂР°: ";
         string name; cin>>name;
 
         Node* temp;
@@ -166,45 +166,45 @@ void Sale(float& sold)
             if( temp->name == name)
             {
                 flag = 1;
-                cout<<"\n Сколько штук продать: ";
+                cout<<"\n РЎРєРѕР»СЊРєРѕ С€С‚СѓРє РїСЂРѕРґР°С‚СЊ: ";
                 int i; cin>>i;
                 if ( (temp->volume-i) >= 0){
                     temp->volume -= i;
-                    cout<<"\n  + "<< i*(temp->cost*1.2) <<" руб."<< endl; //Наценка 20%
-                    sold+= i*(temp->cost*1.2) - i*temp->cost;    //Наценка 20%
+                    cout<<"\n  + "<< i*(temp->cost*1.2) <<" СЂСѓР±."<< endl; //РќР°С†РµРЅРєР° 20%
+                    sold+= i*(temp->cost*1.2) - i*temp->cost;    //РќР°С†РµРЅРєР° 20%
                 }
-                else cout<<"\n * Столько товара нет на складе!";
+                else cout<<"\n * РЎС‚РѕР»СЊРєРѕ С‚РѕРІР°СЂР° РЅРµС‚ РЅР° СЃРєР»Р°РґРµ!";
 
                 if (temp->volume == 0) Pop(temp);
             
             }
             temp = temp->next; 
         }
-        if(!flag) cout<< "\n * Товара с таким именем нет!";
+        if(!flag) cout<< "\n * РўРѕРІР°СЂР° СЃ С‚Р°РєРёРј РёРјРµРЅРµРј РЅРµС‚!";
     }
 
     if(k == 2)
     {
-        cout<<"\n Введите номер товара: ";
+        cout<<"\n Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РѕРІР°СЂР°: ";
         int q; cin>>q;
-        if(q==0){cout<< "  * Ошибка!"; return; }
+        if(q==0){cout<< "  * РћС€РёР±РєР°!"; return; }
 
         Node* temp = First;
 
-        for(q; q>1; q--)  // Сдвигаемся на нужный элемент
+        for(q; q>1; q--)  // РЎРґРІРёРіР°РµРјСЃСЏ РЅР° РЅСѓР¶РЅС‹Р№ СЌР»РµРјРµРЅС‚
         {
-            if(temp->next == NULL ){cout<< "  * Ошибка!"; return; }
+            if(temp->next == NULL ){cout<< "  * РћС€РёР±РєР°!"; return; }
             temp = temp->next;
         }
 
-        cout<<"\n Сколько штук продать: ";
+        cout<<"\n РЎРєРѕР»СЊРєРѕ С€С‚СѓРє РїСЂРѕРґР°С‚СЊ: ";
         int i; cin>>i;
         if ( (temp->volume-i) >= 0){
          temp->volume -= i;
-         cout<<"\n  + "<< i*(temp->cost*1.2) <<" руб."<< endl; //Наценка 20%
-         sold+= i*(temp->cost*1.2) - i*temp->cost;    //Наценка 20%
+         cout<<"\n  + "<< i*(temp->cost*1.2) <<" СЂСѓР±."<< endl; //РќР°С†РµРЅРєР° 20%
+         sold+= i*(temp->cost*1.2) - i*temp->cost;    //РќР°С†РµРЅРєР° 20%
         }      
-        else cout<<"\n * Столько товара нет на складе!";
+        else cout<<"\n * РЎС‚РѕР»СЊРєРѕ С‚РѕРІР°СЂР° РЅРµС‚ РЅР° СЃРєР»Р°РґРµ!";
 
          if (temp->volume == 0) Pop(temp);
     }
@@ -214,15 +214,15 @@ void Scan_File()
 {
     ifstream fin("DATA_K.txt");
 
-    int line = 0;     // Считает строки
+    int line = 0;     // РЎС‡РёС‚Р°РµС‚ СЃС‚СЂРѕРєРё
     while ( !fin.eof() )
     {
         if (fin.get() == '\n') line++;
     }
-    fin.clear();    // Возврат курсора на начало
+    fin.clear();    // Р’РѕР·РІСЂР°С‚ РєСѓСЂСЃРѕСЂР° РЅР° РЅР°С‡Р°Р»Рѕ
     fin.seekg(0);
 
-    cout<<" Колличество строк: "<< line;
+    cout<<" РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє: "<< line;
 
     for (line; line>0 ; line--)
     {
@@ -249,21 +249,21 @@ void Info(float& sold)
         S+= temp->cost*temp->volume;
         temp = temp->next;
     }
-    cout<<"\n Общее число товара на складе: "<<V;
-    cout<<"   |    Общая сумма всех товаров: "<<S<<" руб.";
-    cout<<"   |    Общая прибыль с продаж: " <<sold<<" руб.\n";
+    cout<<"\n РћР±С‰РµРµ С‡РёСЃР»Рѕ С‚РѕРІР°СЂР° РЅР° СЃРєР»Р°РґРµ: "<<V;
+    cout<<"   |    РћР±С‰Р°СЏ СЃСѓРјРјР° РІСЃРµС… С‚РѕРІР°СЂРѕРІ: "<<S<<" СЂСѓР±.";
+    cout<<"   |    РћР±С‰Р°СЏ РїСЂРёР±С‹Р»СЊ СЃ РїСЂРѕРґР°Р¶: " <<sold<<" СЂСѓР±.\n";
 }
 
 void Select(float& sold)
 {
     cout<<"\n  _______________________________________";
     cout<<"\n |                                       ||";
-    cout<<"\n |        ** Выбирите операцию **        ||";
-    cout<<"\n |  1.) Поступление товара               ||";
-    cout<<"\n |  2.) Продажа товара                   ||";
-    cout<<"\n |  3.) Отчет                            ||";
-    cout<<"\n |  4.) Отобразить склад                 ||";
-    cout<<"\n |  0.) Выйти                            ||";
+    cout<<"\n |        ** Р’С‹Р±РёСЂРёС‚Рµ РѕРїРµСЂР°С†РёСЋ **        ||";
+    cout<<"\n |  1.) РџРѕСЃС‚СѓРїР»РµРЅРёРµ С‚РѕРІР°СЂР°               ||";
+    cout<<"\n |  2.) РџСЂРѕРґР°Р¶Р° С‚РѕРІР°СЂР°                   ||";
+    cout<<"\n |  3.) РћС‚С‡РµС‚                            ||";
+    cout<<"\n |  4.) РћС‚РѕР±СЂР°Р·РёС‚СЊ СЃРєР»Р°Рґ                 ||";
+    cout<<"\n |  0.) Р’С‹Р№С‚Рё                            ||";
     cout<<"\n |_______________________________________||";
     cout<<"\n > ";
     int point;
@@ -305,7 +305,7 @@ void Select(float& sold)
         }
         
         default:
-             cout<<"\n Выбирите другую цифру \n";
+             cout<<"\n Р’С‹Р±РёСЂРёС‚Рµ РґСЂСѓРіСѓСЋ С†РёС„СЂСѓ \n";
 
     }
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>        /// 8.) Ноутбук
+#include <fstream>        /// 8.) РќРѕСѓС‚Р±СѓРє
 using namespace std;
 
 struct DATA { string name; float cost; double dioganal; float weight; };
@@ -15,15 +15,15 @@ void Scan_Stack()
 {
     ifstream fin("DATA.txt");
 
-    int line = 0; // Считает строки
+    int line = 0; // РЎС‡РёС‚Р°РµС‚ СЃС‚СЂРѕРєРё
     while ( !fin.eof() )
     {
         if (fin.get() == '\n') line++;
     }
-    fin.clear(); // Возврат курсора на начало
+    fin.clear(); // Р’РѕР·РІСЂР°С‚ РєСѓСЂСЃРѕСЂР° РЅР° РЅР°С‡Р°Р»Рѕ
     fin.seekg(0);
 
-    cout<<" Количество строк: "<< line;
+    cout<<" РљРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє: "<< line;
 
     for (line; line>0 ; line--)
     {
@@ -41,19 +41,19 @@ void Scan_Stack()
 void Show()
 {
     if(top == NULL){
-        cout << "\n Стек пуст" << endl; 
+        cout << "\n РЎС‚РµРє РїСѓСЃС‚" << endl; 
         return;
     }
 
     else {
         Node* temp = top;
-		cout << "\n\nТекущий стек: \n";
+		cout << "\n\nРўРµРєСѓС‰РёР№ СЃС‚РµРє: \n";
 		while (temp != NULL) 
         {
 			cout << temp->data.name <<"    ";
-            cout << temp->data.cost <<" руб.   ";
-            cout << temp->data.dioganal << "' (дюймов)   ";
-            cout << temp->data.weight <<"кг."<< endl;
+            cout << temp->data.cost <<" СЂСѓР±.   ";
+            cout << temp->data.dioganal << "' (РґСЋР№РјРѕРІ)   ";
+            cout << temp->data.weight <<"РєРі."<< endl;
 
 			temp = temp->next;
 		}
@@ -64,11 +64,11 @@ void PushTop()
 {
     Node* temp = new Node;
 
-    cout<<"Введите данные элемента: "<<endl;
-        cout<<"Имя ноутбука: "; cin>>temp->data.name;
-         cout<<"Цена: "; cin>>temp->data.cost;
-          cout<<"Диоганаль: "; cin>>temp->data.dioganal;
-           cout<<"Вес: "; cin>>temp->data.weight;
+    cout<<"Р’РІРµРґРёС‚Рµ РґР°РЅРЅС‹Рµ СЌР»РµРјРµРЅС‚Р°: "<<endl;
+        cout<<"РРјСЏ РЅРѕСѓС‚Р±СѓРєР°: "; cin>>temp->data.name;
+         cout<<"Р¦РµРЅР°: "; cin>>temp->data.cost;
+          cout<<"Р”РёРѕРіР°РЅР°Р»СЊ: "; cin>>temp->data.dioganal;
+           cout<<"Р’РµСЃ: "; cin>>temp->data.weight;
 
         temp->next = top;
         top = temp;
@@ -78,20 +78,20 @@ void PushTop()
 void PullNode(string name)
 {
     if (top == NULL) {
-		cout << "\n Стек пуст" << endl;  
+		cout << "\n РЎС‚РµРє РїСѓСЃС‚" << endl;  
         return;
 	}
     else
     {
-        Node* temp;  // temp это указатель на искомый элемент
+        Node* temp;  // temp СЌС‚Рѕ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёСЃРєРѕРјС‹Р№ СЌР»РµРјРµРЅС‚
         temp = top; 
            
         while ( (temp->data.name)!=name && temp!=NULL) 
-        {  // Нахожу искомый элемент (name - элемнта)
+        {  // РќР°С…РѕР¶Сѓ РёСЃРєРѕРјС‹Р№ СЌР»РµРјРµРЅС‚ (name - СЌР»РµРјРЅС‚Р°)
             temp = temp->next; 
         }
 
-        if(temp == top)  // Исключение для верхнего элемента
+        if(temp == top)  // РСЃРєР»СЋС‡РµРЅРёРµ РґР»СЏ РІРµСЂС…РЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°
         {
             top = top->next;
             temp->next = NULL;
@@ -104,9 +104,9 @@ void PullNode(string name)
         {
             if( (temp1->next) == temp ) 
             {
-              temp1->next = temp->next; // перескакиваю через элемент (вместо temp это temp->next)
-              temp->next = NULL;   // разрушаем связь для удаляемого узла
-              free(temp);        // освобождаем память узла
+              temp1->next = temp->next; // РїРµСЂРµСЃРєР°РєРёРІР°СЋ С‡РµСЂРµР· СЌР»РµРјРµРЅС‚ (РІРјРµСЃС‚Рѕ temp СЌС‚Рѕ temp->next)
+              temp->next = NULL;   // СЂР°Р·СЂСѓС€Р°РµРј СЃРІСЏР·СЊ РґР»СЏ СѓРґР°Р»СЏРµРјРѕРіРѕ СѓР·Р»Р°
+              free(temp);        // РѕСЃРІРѕР±РѕР¶РґР°РµРј РїР°РјСЏС‚СЊ СѓР·Р»Р°
             }
             else temp1 = temp1->next;
         }
@@ -119,7 +119,7 @@ void Clear()
     Node* temp;
 
     if (top == NULL){
-        cout<< "\n Стек уже пуст" << endl;
+        cout<< "\n РЎС‚РµРє СѓР¶Рµ РїСѓСЃС‚" << endl;
         return;
     }
     else {
@@ -131,7 +131,7 @@ void Clear()
             free(temp);
             temp = top;
         }
-        cout<< "\n Стек очищен"<<endl;
+        cout<< "\n РЎС‚РµРє РѕС‡РёС‰РµРЅ"<<endl;
     }
 }
 
@@ -139,11 +139,11 @@ void Select()
 {
     cout<<"\n  _______________________________________";
     cout<<"\n |                                       ||";
-    cout<<"\n |        ** Выбирите операцию **        ||";
-    cout<<"\n |  1.) Добавить товар в корзину         ||";
-    cout<<"\n |  2.) Вытащить товар из корзины        ||";
-    cout<<"\n |  3.) Очистить корзину                 ||";
-    cout<<"\n |  0.) Выйти                            ||";
+    cout<<"\n |        ** Р’С‹Р±РёСЂРёС‚Рµ РѕРїРµСЂР°С†РёСЋ **        ||";
+    cout<<"\n |  1.) Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ РІ РєРѕСЂР·РёРЅСѓ         ||";
+    cout<<"\n |  2.) Р’С‹С‚Р°С‰РёС‚СЊ С‚РѕРІР°СЂ РёР· РєРѕСЂР·РёРЅС‹        ||";
+    cout<<"\n |  3.) РћС‡РёСЃС‚РёС‚СЊ РєРѕСЂР·РёРЅСѓ                 ||";
+    cout<<"\n |  0.) Р’С‹Р№С‚Рё                            ||";
     cout<<"\n |_______________________________________||";
     cout<<"\n > ";
     int point;
@@ -161,7 +161,7 @@ void Select()
          case 2:   
         {
           string name;
-          cout<<"\n Введите имя удаляемого товара: ";
+          cout<<"\n Р’РІРµРґРёС‚Рµ РёРјСЏ СѓРґР°Р»СЏРµРјРѕРіРѕ С‚РѕРІР°СЂР°: ";
           cin>>name;
 
           PullNode(name);
@@ -186,7 +186,7 @@ void Select()
         
         default:
         {
-             cout<<"\n Выбирите другую цифру \n";
+             cout<<"\n Р’С‹Р±РёСЂРёС‚Рµ РґСЂСѓРіСѓСЋ С†РёС„СЂСѓ \n";
              Select();
         }
 
