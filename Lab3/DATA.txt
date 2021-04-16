@@ -1,0 +1,7 @@
+Acer_Aspire_ 49999  15.6 1.5
+HP_Pavilion 50999 14 1.6
+Acer_Aspire_5 52000 15.6 1.4
+ASUS1 24200 13 1.3
+Lenovo_ThinkBook 51299 15.6 1.3
+MSI_Modern 51999 16 1.5
+ASUS_VivoBook 59999 1.5 1.3
