@@ -8,35 +8,35 @@ class Date
 {
     public:
 
-    class Node
-    {
-        public:
+        class Node
+        {
+            public:
 
-            int second;
-            int minute;
-            int hour;
-            int day;
-            int month;
-            int year;
+                int second;
+                int minute;
+                int hour;
+                int day;
+                int month;
+                int year;
 
-            Node* next;
-            Node* prev;
+                Node* next;
+                Node* prev;
 
-            unsigned int n;   // Номер
-    };
+                unsigned int n;   // Номер
+        };
 
-    Node* first;
-    
-    void DisplayNode(Node* temp);
-    void Show_all();
- 
-    void Push(Node* temp);
-    void GetFail();
-    void Task_12();
+        Node* first;
 
-    void GetSystemDate();
+        void DisplayNode(Node* temp);
+        void Show_all();
 
-    void Clear();
+        void Push(Node* temp);
+        void GetFail();
+        void Task_12();
+
+        void GetSystemDate();
+
+        void Clear();
     
 };
 
