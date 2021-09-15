@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <Windows.h>
-                            ////  Вариант 12  ////
+                            ////  Р’Р°СЂРёР°РЅС‚ 12  ////
 using namespace std;           
 
 struct Date
@@ -18,7 +18,7 @@ struct Date
         Node* next;
         Node* prev;
 
-        unsigned int n;   // Номер
+        unsigned int n;   // РќРѕРјРµСЂ
     };
 
     Node* first;
@@ -97,14 +97,14 @@ void Date::Show_all()
 {
     if(!first) 
     {
-        cout<<"\n *  Список пуст   * \n";
+        cout<<"\n *  РЎРїРёСЃРѕРє РїСѓСЃС‚   * \n";
         return;
     }
 
     Node* temp = first;
 
     cout<<"\n------------------------------------------------------------------------------------";
-    cout<<"\n          дата             |       следующая дата       |       предыдущая дата     |\n";
+    cout<<"\n          РґР°С‚Р°             |       СЃР»РµРґСѓСЋС‰Р°СЏ РґР°С‚Р°       |       РїСЂРµРґС‹РґСѓС‰Р°СЏ РґР°С‚Р°     |\n";
     cout<<"-------------------------------------------------------------------------------------\n";
 
     do
@@ -123,12 +123,12 @@ void Date::DisplayNode(Node* temp)
 {
 
     cout<<temp->n<<".   "<<temp->second<<":"<<temp->minute<<":"<<temp->hour
-        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<"       ";     // Дата
+        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<"       ";     // Р”Р°С‚Р°
 
 
-        if(temp->next != NULL)                          // Сле. Дата
+        if(temp->next != NULL)                          // РЎР»Рµ. Р”Р°С‚Р°
         {   
-         cout<<temp->next->second<<":"<<temp->next->minute<<":"<<temp->next->hour      // Сле. Дата
+         cout<<temp->next->second<<":"<<temp->next->minute<<":"<<temp->next->hour      // РЎР»Рµ. Р”Р°С‚Р°
          <<"  "<<temp->next->day<<"."<<temp->next->month<<"."<<temp->next->year;
         }
         else
@@ -138,7 +138,7 @@ void Date::DisplayNode(Node* temp)
         }
         cout<<"               ";
 
-            if(temp->prev != NULL)                     // Пред. Дата
+            if(temp->prev != NULL)                     // РџСЂРµРґ. Р”Р°С‚Р°
             {
                 cout<<temp->prev->second<<":"<<temp->prev->minute<<":"<<temp->prev->hour   
                 <<"  "<<temp->prev->day<<"."<<temp->prev->month<<"."<<temp->prev->year;
@@ -156,7 +156,7 @@ void Date::Task_12()
 {
     if(!first)
     {
-        cout<<"\n * Ничего не найдено. ";
+        cout<<"\n * РќРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ. ";
         return;
     }
 
@@ -170,7 +170,7 @@ void Date::Task_12()
            if(!flag)
            {
             cout<<"\n------------------------------------------------------------------------------------";
-            cout<<"\n          дата             |       следующая дата       |       предыдущая дата     |\n";
+            cout<<"\n          РґР°С‚Р°             |       СЃР»РµРґСѓСЋС‰Р°СЏ РґР°С‚Р°       |       РїСЂРµРґС‹РґСѓС‰Р°СЏ РґР°С‚Р°     |\n";
             cout<<"-------------------------------------------------------------------------------------\n";
            }
 
@@ -183,19 +183,19 @@ void Date::Task_12()
 
     } while (temp);
     
-    if(!flag) cout<<"\n * Ничего не найдено. ";
+    if(!flag) cout<<"\n * РќРёС‡РµРіРѕ РЅРµ РЅР°Р№РґРµРЅРѕ. ";
 
 }
 
 void Date::GetSystemDate()
 {
-    SYSTEMTIME st;  // буфер хранения системного времени
+    SYSTEMTIME st;  // Р±СѓС„РµСЂ С…СЂР°РЅРµРЅРёСЏ СЃРёСЃС‚РµРјРЅРѕРіРѕ РІСЂРµРјРµРЅРё
 
     Node* temp;
     temp = new Node;
-    GetLocalTime(&st);  // Запись времени
+    GetLocalTime(&st);  // Р—Р°РїРёСЃСЊ РІСЂРµРјРµРЅРё
   
-    temp->second = int(st.wSecond);  // Распеределение данных
+    temp->second = int(st.wSecond);  // Р Р°СЃРїРµСЂРµРґРµР»РµРЅРёРµ РґР°РЅРЅС‹С…
     temp->minute = int(st.wMinute);
     temp->hour = int(st.wHour);
     temp->day = int(st.wDay);
@@ -204,8 +204,8 @@ void Date::GetSystemDate()
     
     Push(temp);
 
-    cout<<"\n\n * Дата "<<temp->second<<":"<<temp->minute<<":"<<temp->hour
-        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<" успешно добавлена.\n";
+    cout<<"\n\n * Р”Р°С‚Р° "<<temp->second<<":"<<temp->minute<<":"<<temp->hour
+        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<" СѓСЃРїРµС€РЅРѕ РґРѕР±Р°РІР»РµРЅР°.\n";
 }
 
 void Date::Clear()
@@ -213,7 +213,7 @@ void Date::Clear()
 
     if(!first)
     {
-        cout<<"\n * Очередь уже пустая.";
+        cout<<"\n * РћС‡РµСЂРµРґСЊ СѓР¶Рµ РїСѓСЃС‚Р°СЏ.";
         return; 
     }
 
@@ -235,13 +235,13 @@ void MENU()
 
     cout<<"\n  ________________________________________"
         <<"\n |                                        ||"
-        <<"\n |        ** Выбирите операцию **         ||"
-        <<"\n |  1.) Выгрузить данные из файла         ||"
-        <<"\n |  2.) Вариант 12                        ||"
-        <<"\n |  3.) Отобразить список                 ||"
-        <<"\n |  4.) Очистить список                   ||"
-        <<"\n |  5.) Записать системное время и дату   ||"
-        <<"\n |  0.) Выйти                             ||"
+        <<"\n |        ** Р’С‹Р±РёСЂРёС‚Рµ РѕРїРµСЂР°С†РёСЋ **         ||"
+        <<"\n |  1.) Р’С‹РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р°         ||"
+        <<"\n |  2.) Р’Р°СЂРёР°РЅС‚ 12                        ||"
+        <<"\n |  3.) РћС‚РѕР±СЂР°Р·РёС‚СЊ СЃРїРёСЃРѕРє                 ||"
+        <<"\n |  4.) РћС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє                   ||"
+        <<"\n |  5.) Р—Р°РїРёСЃР°С‚СЊ СЃРёСЃС‚РµРјРЅРѕРµ РІСЂРµРјСЏ Рё РґР°С‚Сѓ   ||"
+        <<"\n |  0.) Р’С‹Р№С‚Рё                             ||"
         <<"\n |________________________________________||"
         <<"\n  > ";
 
@@ -252,7 +252,7 @@ void MENU()
         {
             system("cls");
             datetime.GetFail();
-            cout<<"\n * Данные успешно загружены.";
+            cout<<"\n * Р”Р°РЅРЅС‹Рµ СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅС‹.";
             datetime.Show_all();
             MENU();
 
@@ -278,7 +278,7 @@ void MENU()
         case 4:
         {
             datetime.Clear();
-            cout<<"\n\n * Список успешно очищен.\n";
+            cout<<"\n\n * РЎРїРёСЃРѕРє СѓСЃРїРµС€РЅРѕ РѕС‡РёС‰РµРЅ.\n";
             MENU();
 
               break;
@@ -287,7 +287,7 @@ void MENU()
         case 5:
         {
             datetime.GetSystemDate();
-            cout<<"\n\n * Время записано.\n";
+            cout<<"\n\n * Р’СЂРµРјСЏ Р·Р°РїРёСЃР°РЅРѕ.\n";
             MENU();
 
               break;
@@ -303,7 +303,7 @@ void MENU()
         
         default:
         {
-            cout<<"\n * Ошибка";
+            cout<<"\n * РћС€РёР±РєР°";
             system("cls");
             MENU();
             break;
