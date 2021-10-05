@@ -4,9 +4,9 @@
 
 using namespace std;
 
-class Node
+class Date
 {
-    public:
+    private:
 
         int second;
         int minute;
@@ -15,92 +15,131 @@ class Node
         int month;
         int year;
 
-        Node* next;
-        Node* prev;
-
-        unsigned int n;   // –ù–æ–º–µ—Ä    
-
-         Node();
-        ~Node();
-};
-
-class Date
-{
-    private:
-
-        Node* first;
-
+        
     public:
 
-         Date();
+       /*  Date();
          Date(int sd, int me, int hr, int dy, int mh, int yr);
-        ~Date();
+        ~Date();*/
 
-        void DisplayNode(Node* temp);
-        void Show_all();
-    
-        void Push(Node* temp);
-        void GetFail();
-        void Task_12();
-
-        void SetSystemDate();
-
-        void Clear();
+        void DisplayDate();
+        void SetAdd(int sd, int me, int hr, int dy, int mh, int yr);
+        bool Check();
 
 };
 
-Date datetime;
+class Node
+        {
+            public:
 
+            unsigned int n;
+            Date* date;
 
+            Node* next;
+            Node* prev;
 
-Date::Date()
+            Node();
+
+            void DisplayNode();
+        };
+
+class List
 {
-    first = NULL;
-    cout<<"\n- –ö–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä Date -";
-}
-Date::Date(int sd, int me, int hr, int dy, int mh, int yr)
-{
-    cout<<"\n- –ö–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä Date -";
+     private:
 
-    Node* temp = new Node;
+        Node* first = NULL;
 
-    temp->second = sd;
-    temp->minute = me;
-    temp->hour   = hr;
-    temp->day    = dy;
-    temp-> month = mh;
-    temp->year   = yr;
 
-    first = temp;
-    first->next = NULL;
-    first->prev = NULL;
+    public:
+       
+        void Push(Node* temp);
+        void GetFail();
 
-    temp->n=1;
-}
-Date::~Date()
-{
-    cout<<"\n- –î–µ–∫–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä Date -";
-}
+        void Show_all();
+        void Clear();
+        void Task_12();
+        void SetSystemDate();
+
+
+};
+
+List datetime;
 
 Node::Node()
 {
-     cout<<"\n- –ö–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä Node -";
+    date = new Date;
 
-    second = 0;
-    minute = 0;
-    hour = 0;
-    day = 1;
-    month = 1;
-    year = 2021;
-
+    cout<<"\n-  ÓÌÒÚÛÍÚÓ Node -\n";
 }
-Node::~Node()
+
+
+
+/////// ÃÂÚÓ‰˚ Date ////////
+
+void Date::SetAdd(int sd, int me, int hr, int dy, int mh, int yr)
 {
-    cout<<"\n- –î–µ–∫–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä Node -";
+    second = sd;
+    minute = me;
+    hour   = hr;
+    day    = dy;
+    month = mh;
+    year   = yr;
+}
+
+void Date::DisplayDate()
+{
+    cout<<second<<":"<<minute<<":"<<hour
+        <<"  "<<day<<"."<<month<<"."<<year;
+}
+
+bool Date::Check()
+{
+    if( day%2 )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
-void Date::Push(Node* temp)
+void Node::DisplayNode()
+{
+
+    cout<<n<<".\t";  date->DisplayDate();  // ¬˚‚Ó‰ËÚ ‰‡ÚÛ
+
+
+        cout<<"\t";
+
+    if(next != NULL)                     // ¬˚‚Ó‰ËÚ ÒÎÂ‰. ‰‡ÚÛ               
+    {   
+        next->date->DisplayDate();
+    }
+    else
+    {
+        cout<<"__"<<":"<<"__"<<":"<<"__"
+        <<"  "<<"__"<<"."<<"__"<<"."<<"__";
+    }
+        cout<<"\t";
+
+
+    if(prev != NULL)                  // ¬˚‚Ó‰ËÚ ÔÂ‰. ‰‡ÚÛ    
+    {
+        prev->date->DisplayDate();
+    }
+    else
+    {
+        cout<<"__"<<":"<<"__"<<":"<<"__"
+        <<"  "<<"__"<<"."<<"__"<<"."<<"__";
+    }
+        
+    cout<<endl;
+}
+
+
+void List::Push(Node* temp)
 {
 
     if(!first)
@@ -109,7 +148,7 @@ void Date::Push(Node* temp)
         first->next = NULL;
         first->prev = NULL;
 
-        temp->n=1;
+        first->n = 1;
     }
     
     else
@@ -121,100 +160,75 @@ void Date::Push(Node* temp)
             temp1 = temp1->next;
         }
 
+
         temp1->next = temp;
         temp1->next->next = NULL;
-        temp->prev = temp1;
+        temp1->next->prev = temp1;
 
-        temp->n = (temp->prev->n)+1;
+        temp->n = temp->prev->n + 1;
     }
 }
 
-void Date::GetFail()
+void List::GetFail()
 {
     ifstream fin("INPUT.txt");
 
     Node* temp;
-
+    int sd, me, hr, dy, mh, yr;
+    
     while(!fin.eof())
     {
         temp = new Node;
-        fin >> temp->second;
-        fin >> temp->minute;
-        fin >> temp->hour;
-        fin >> temp->day;
-        fin >> temp->month;
-        fin >> temp->year;
 
-        datetime.Push(temp);  // ? 
+        fin >> sd;
+        fin >> me;
+        fin >> hr;
+        fin >> dy;
+        fin >> mh;
+        fin >> yr;
+
+        temp->date->SetAdd(sd,me,hr,dy,mh,yr);
+        
+        Push(temp); 
+        
     }
 
     fin.close();
 }
 
-void Date::DisplayNode(Node* temp)
+void List::Show_all()
 {
 
-    cout<<temp->n<<".   "<<temp->second<<":"<<temp->minute<<":"<<temp->hour
-        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<"       ";     // –î–∞—Ç–∞
-
-
-        if(temp->next != NULL)                          // –°–ª–µ. –î–∞—Ç–∞
-        {   
-         cout<<temp->next->second<<":"<<temp->next->minute<<":"<<temp->next->hour      // –°–ª–µ. –î–∞—Ç–∞
-         <<"  "<<temp->next->day<<"."<<temp->next->month<<"."<<temp->next->year;
-        }
-        else
-        {
-            cout<<"__"<<":"<<"__"<<":"<<"__"
-         <<"  "<<"__"<<"."<<"__"<<"."<<"__";
-        }
-        cout<<"               ";
-
-            if(temp->prev != NULL)                     // –ü—Ä–µ–¥. –î–∞—Ç–∞
-            {
-                cout<<temp->prev->second<<":"<<temp->prev->minute<<":"<<temp->prev->hour   
-                <<"  "<<temp->prev->day<<"."<<temp->prev->month<<"."<<temp->prev->year;
-            }
-            else
-            {
-                    cout<<"__"<<":"<<"__"<<":"<<"__"
-                <<"  "<<"__"<<"."<<"__"<<"."<<"__";
-            }
-        
-        cout<<endl;
-}
-
-void Date::Show_all()
-{
     if(!first) 
     {
-        cout<<"\n *  –°–ø–∏—Å–æ–∫ –ø—É—Å—Ç   * \n";
+        cout<<"\n *  —ÔËÒÓÍ ÔÛÒÚ   * \n";
         return;
     }
 
     Node* temp = first;
 
-    cout<<"\n------------------------------------------------------------------------------------";
-    cout<<"\n          –¥–∞—Ç–∞             |       —Å–ª–µ–¥—É—é—â–∞—è –¥–∞—Ç–∞       |       –ø—Ä–µ–¥—ã–¥—É—â–∞—è –¥–∞—Ç–∞     |\n";
-    cout<<"-------------------------------------------------------------------------------------\n";
+    cout<<"\n-----------------------------------------------------------------------------";
+    cout<<"\n             ‰‡Ú‡            |     ÒÎÂ‰Û˛˘‡ˇ ‰‡Ú‡    |    ÔÂ‰˚‰Û˘‡ˇ ‰‡Ú‡    |\n";
+    cout<<"-----------------------------------------------------------------------------\n";
 
     do
     {
 
-        DisplayNode(temp);
+        temp->DisplayNode();
         temp = temp->next;
 
     } while(temp);
 
     cout<<endl;
 
+
 }
 
-void Date::Task_12()
+void List::Task_12()
 {
     if(!first)
     {
-        cout<<"\n * –ù–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ. ";
+        cout<<"\n * ÕË˜Â„Ó ÌÂ Ì‡È‰ÂÌÓ. ";
         return;
     }
 
@@ -223,55 +237,51 @@ void Date::Task_12()
 
     do
     {
-       if(temp->next != NULL && temp->day%2 != 0  && temp->next->day%2 != 0)
+       if(temp->next != NULL && temp->date->Check() && temp->next->date->Check() )
        {
            if(!flag)
            {
             cout<<"\n------------------------------------------------------------------------------------";
-            cout<<"\n          –¥–∞—Ç–∞             |       —Å–ª–µ–¥—É—é—â–∞—è –¥–∞—Ç–∞       |       –ø—Ä–µ–¥—ã–¥—É—â–∞—è –¥–∞—Ç–∞     |\n";
+            cout<<"\n          ‰‡Ú‡             |       ÒÎÂ‰Û˛˘‡ˇ ‰‡Ú‡       |       ÔÂ‰˚‰Û˘‡ˇ ‰‡Ú‡     |\n";
             cout<<"-------------------------------------------------------------------------------------\n";
            }
 
-            DisplayNode(temp);
+            temp->DisplayNode();
 
             flag = 1;
        }
 
-        temp = temp->next;
+       temp = temp->next;
 
     } while (temp);
     
-    if(!flag) cout<<"\n * –ù–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ. ";
+    if(!flag) cout<<"\n * ÕË˜Â„Ó ÌÂ Ì‡È‰ÂÌÓ. ";
 
 }
 
-void Date::SetSystemDate()
+void List::SetSystemDate()
 {
-    SYSTEMTIME st;  // –±—É—Ñ–µ—Ä —Ö—Ä–∞–Ω–µ–Ω–∏—è —Å–∏—Å—Ç–µ–º–Ω–æ–≥–æ –≤—Ä–µ–º–µ–Ω–∏
+    SYSTEMTIME st;  // ·ÛÙÂ ı‡ÌÂÌËˇ ÒËÒÚÂÏÌÓ„Ó ‚ÂÏÂÌË
 
-    Node* temp;
-    temp = new Node;
-    GetLocalTime(&st);  // –ó–∞–ø–∏—Å—å –≤—Ä–µ–º–µ–Ω–∏
-  
-    temp->second = int(st.wSecond);  // –†–∞—Å–ø–µ—Ä–µ–¥–µ–ª–µ–Ω–∏–µ –¥–∞–Ω–Ω—ã—Ö
-    temp->minute = int(st.wMinute);
-    temp->hour = int(st.wHour);
-    temp->day = int(st.wDay);
-    temp->month = int(st.wMonth);
-    temp->year = int(st.wYear);
-    
+    Node* temp = new Node;
+    GetLocalTime(&st);  // «‡ÔËÒ¸ ‚ÂÏÂÌË
+    // –‡ÒÔÂÂ‰ÂÎÂÌËÂ ‰‡ÌÌ˚ı
+
+    temp->date->SetAdd(int(st.wSecond), int(st.wMinute), int(st.wHour), int(st.wDay), int(st.wMonth), int(st.wYear));
+
     Push(temp);
 
-    cout<<"\n\n * –î–∞—Ç–∞ "<<temp->second<<":"<<temp->minute<<":"<<temp->hour
-        <<"  "<<temp->day<<"."<<temp->month<<"."<<temp->year<<" —É—Å–ø–µ—à–Ω–æ –¥–æ–±–∞–≤–ª–µ–Ω–∞.\n";
+    cout<<"\n\n * ƒ‡Ú‡ ";
+    temp->date->DisplayDate();
+    cout<<" ÛÒÔÂ¯ÌÓ ‰Ó·‡‚ÎÂÌ‡.\n";
 }
 
-void Date::Clear()
+void List::Clear()
 {
 
     if(!first)
     {
-        cout<<"\n * –û—á–µ—Ä–µ–¥—å —É–∂–µ –ø—É—Å—Ç–∞—è.";
+        cout<<"\n * Œ˜ÂÂ‰¸ ÛÊÂ ÔÛÒÚ‡ˇ.";
         return; 
     }
 
@@ -282,23 +292,26 @@ void Date::Clear()
         temp = first;
         first = temp->next;
     
+        free(temp->date);
         free(temp);
     }
     
 }
+
+
 
 void MENU()
 {
 
     cout<<"\n  ________________________________________"
         <<"\n |                                        ||"
-        <<"\n |        ** –í—ã–±–∏—Ä–∏—Ç–µ –æ–ø–µ—Ä–∞—Ü–∏—é **         ||"
-        <<"\n |  1.) –í—ã–≥—Ä—É–∑–∏—Ç—å –¥–∞–Ω–Ω—ã–µ –∏–∑ —Ñ–∞–π–ª–∞         ||"
-        <<"\n |  2.) –í–∞—Ä–∏–∞–Ω—Ç 12                        ||"
-        <<"\n |  3.) –û—Ç–æ–±—Ä–∞–∑–∏—Ç—å —Å–ø–∏—Å–æ–∫                 ||"
-        <<"\n |  4.) –û—á–∏—Å—Ç–∏—Ç—å —Å–ø–∏—Å–æ–∫                   ||"
-        <<"\n |  5.) –ó–∞–ø–∏—Å–∞—Ç—å —Å–∏—Å—Ç–µ–º–Ω–æ–µ –≤—Ä–µ–º—è –∏ –¥–∞—Ç—É   ||"
-        <<"\n |  0.) –í—ã–π—Ç–∏                             ||"
+        <<"\n |        ** ¬˚·ËËÚÂ ÓÔÂ‡ˆË˛ **         ||"
+        <<"\n |  1.) ¬˚„ÛÁËÚ¸ ‰‡ÌÌ˚Â ËÁ Ù‡ÈÎ‡         ||"
+        <<"\n |  2.) ¬‡Ë‡ÌÚ 12                        ||"
+        <<"\n |  3.) ŒÚÓ·‡ÁËÚ¸ ÒÔËÒÓÍ                 ||"
+        <<"\n |  4.) Œ˜ËÒÚËÚ¸ ÒÔËÒÓÍ                   ||"
+        <<"\n |  5.) «‡ÔËÒ‡Ú¸ ÒËÒÚÂÏÌÓÂ ‚ÂÏˇ Ë ‰‡ÚÛ   ||"
+        <<"\n |  0.) ¬˚ÈÚË                             ||"
         <<"\n |________________________________________||"
         <<"\n  > ";
 
@@ -309,7 +322,7 @@ void MENU()
         {
             system("cls");
             datetime.GetFail();
-            cout<<"\n * –î–∞–Ω–Ω—ã–µ —É—Å–ø–µ—à–Ω–æ –∑–∞–≥—Ä—É–∂–µ–Ω—ã.";
+            cout<<"\n * ƒ‡ÌÌ˚Â ÛÒÔÂ¯ÌÓ Á‡„ÛÊÂÌ˚.";
             datetime.Show_all();
             MENU();
 
@@ -335,7 +348,7 @@ void MENU()
         case 4:
         {
             datetime.Clear();
-            cout<<"\n\n * –°–ø–∏—Å–æ–∫ —É—Å–ø–µ—à–Ω–æ –æ—á–∏—â–µ–Ω.\n";
+            cout<<"\n\n * —ÔËÒÓÍ ÛÒÔÂ¯ÌÓ Ó˜Ë˘ÂÌ.\n";
             MENU();
 
               break;
@@ -344,7 +357,7 @@ void MENU()
         case 5:
         {
             datetime.SetSystemDate();
-            cout<<"\n\n * –í—Ä–µ–º—è –∑–∞–ø–∏—Å–∞–Ω–æ.\n";
+            cout<<"\n\n * ¬ÂÏˇ Á‡ÔËÒ‡ÌÓ.\n";
             MENU();
 
               break;
@@ -360,7 +373,7 @@ void MENU()
         
         default:
         {
-            cout<<"\n * –û—à–∏–±–∫–∞";
+            cout<<"\n * Œ¯Ë·Í‡";
             system("cls");
             MENU();
             break;
@@ -370,13 +383,14 @@ void MENU()
 
 }
 
+
 int main()
 {
     system ("chcp 1251");
 
-    
     MENU();
     
+
     return 0;
 }
 
