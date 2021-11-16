@@ -9,7 +9,7 @@ class Figure
 {
     public:
 
-        virtual ~Figure() {cout<<"\n- Äåñòğóêòîğ Figure() -";}
+        virtual ~Figure() {cout<<"\n- Ğ”ĞµÑÑ‚Ñ€ÑƒĞºÑ‚Ğ¾Ñ€ Figure() -";}
 
         virtual double Calc_Square() = 0;    
        // virtual Figure* Clone() = 0;       
@@ -40,7 +40,7 @@ class Triangle: public Figure
 
         double a,b,c;
 
-        bool Check(double ,double , double);   // Ïğîâåğêà íà ñóùåñòâîâàíèå òğåóãîëüíèêà
+        bool Check(double ,double , double);   // ĞŸÑ€Ğ¾Ğ²ĞµÑ€ĞºĞ° Ğ½Ğ° ÑÑƒÑ‰ĞµÑÑ‚Ğ²Ğ¾Ğ²Ğ°Ğ½Ğ¸Ğµ Ñ‚Ñ€ĞµÑƒĞ³Ğ¾Ğ»ÑŒĞ½Ğ¸ĞºĞ°
 
     public:
 
@@ -61,7 +61,7 @@ class Star: public Figure
 {
     private:
 
-        double d;   // Äëèííà îñíîâàíèÿ ëó÷à (ñòîğîíà âíóòğåííåãî ïÿòèóãîëüíèêà)
+        double d;   // Ğ”Ğ»Ğ¸Ğ½Ğ½Ğ° Ğ¾ÑĞ½Ğ¾Ğ²Ğ°Ğ½Ğ¸Ñ Ğ»ÑƒÑ‡Ğ° (ÑÑ‚Ğ¾Ñ€Ğ¾Ğ½Ğ° Ğ²Ğ½ÑƒÑ‚Ñ€ĞµĞ½Ğ½ĞµĞ³Ğ¾ Ğ¿ÑÑ‚Ğ¸ÑƒĞ³Ğ¾Ğ»ÑŒĞ½Ğ¸ĞºĞ°)
 
     public:
 

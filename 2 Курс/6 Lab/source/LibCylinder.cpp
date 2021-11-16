@@ -5,19 +5,19 @@
 
 Cylinder::Cylinder(double new_h)
 {
-    cout<<"\n- Конструктор Cylinder() -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Cylinder() -";
     
     if( new_h > 0)
     {
         h = new_h;
     }
 
-    else throw " * Неверное значение высоты!!! ";
+    else throw " * РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РІС‹СЃРѕС‚С‹!!! ";
 }
 
 Cylinder::~Cylinder()
 {
-    cout<<"\n- Деструктор Cylinder() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ Cylinder() -";
     delete f; 
 }
 
@@ -31,7 +31,7 @@ double Cylinder::CalcValume()
 
 CircleCylinder::CircleCylinder(Circle* figure, double new_h):Cylinder(new_h)
 {
-    cout<<"\n- Конструктор CircleCylinder() -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ CircleCylinder() -";
     f = new Circle(figure->GetRadius());
 }
 
@@ -43,7 +43,7 @@ CircleCylinder* CircleCylinder::CreateInstance(Circle* figure, double new_h)
 
 CircleCylinder::~CircleCylinder()
 {
-    cout<<"\n- Деструктор CircleCylinder() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ CircleCylinder() -";
 }
 
 
@@ -52,7 +52,7 @@ CircleCylinder::~CircleCylinder()
 
 TringleCylinder::TringleCylinder(Triangle* figure, double new_h):Cylinder(new_h)
 {
-    cout<<"\n- Конструктор TringleCylinder() -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ TringleCylinder() -";
     f = new Triangle(figure->GetSideA(), figure->GetSideB(), figure->GetSideC() );
 }
 
@@ -64,7 +64,7 @@ TringleCylinder* TringleCylinder::CreateInstance(Triangle* figure, double new_h)
 
 TringleCylinder::~TringleCylinder()
 {
-    cout<<"\n- Деструктор TringleCylinder() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ TringleCylinder() -";
 }
 
 
@@ -73,7 +73,7 @@ TringleCylinder::~TringleCylinder()
 
 StarCylinder::StarCylinder(Star* figure, double new_h):Cylinder(new_h)
 {
-    cout<<"\n- Конструктор StarCylinder() -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ StarCylinder() -";
     f = new Star(figure->GetBaseRay());
 }
 
@@ -85,5 +85,5 @@ StarCylinder* StarCylinder::CreateInstance(Star* figure, double new_h)
 
 StarCylinder::~StarCylinder()
 {
-    cout<<"\n- Деструктор StarCylinder() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ StarCylinder() -";
 }

@@ -1,10 +1,10 @@
-#include "LibShapes.h"
+﻿#include "LibShapes.h"
 
 //////   Methods for Circle   /////
 
 Circle::Circle()
 {  
-    cout<<"\n- Конструктор Circle -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Circle -";
     r = 4;      
 }
 
@@ -12,18 +12,18 @@ Circle::Circle(double new_r)
 {
     if( new_r > 0)
     {
-        cout<<"\n- Конструктор Circle() -";
+        cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Circle() -";
         r = new_r;
     }
     else
     {
-        throw "Неверное значение радиуса! ";
+        throw "РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЂР°РґРёСѓСЃР°! ";
     }
 }
 
 Circle::~Circle()
 {
-    cout<<"\n- Деструктор Circle() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ Circle() -";
 }
 
 double Circle::Calc_Square()
@@ -47,7 +47,7 @@ bool Triangle::Check(double a, double b, double c)
 
 Triangle::Triangle()
 {
-     cout<<"\n- Конструктор Tringle -";
+     cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Tringle -";
      a=3;
      b=4;
      c=5;
@@ -57,26 +57,26 @@ Triangle::Triangle(double new_a, double new_b, double new_c)
 {
     if( Check(new_a,new_b,new_c) )
     {
-        cout<<"\n- Конструктор Tringle() -";
+        cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Tringle() -";
         a=new_a;
         b=new_b;
         c=new_c;
     }
 
-    else  throw " * Значения треугольника неверные! ";
+    else  throw " * Р—РЅР°С‡РµРЅРёСЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РЅРµРІРµСЂРЅС‹Рµ! ";
     
 }
 
 Triangle::~Triangle()
 {
-    cout<<"\n- Деструктор Triangle() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ Triangle() -";
 }
 
 double Triangle::Calc_Square()
 {   
     double p = (a+b+c) / 2;
 
-    return sqrt( p* (p-a)*(p-b)*(p-c) );  // Формула Герона
+    return sqrt( p* (p-a)*(p-b)*(p-c) );  // Р¤РѕСЂРјСѓР»Р° Р“РµСЂРѕРЅР°
 }
 
 
@@ -85,7 +85,7 @@ double Triangle::Calc_Square()
 
 Star::Star()
 {
-    cout<<"\n- Конструктор Star -";
+    cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Star -";
     d = 5;
 }
 
@@ -93,30 +93,30 @@ Star::Star(double new_d)
 {
     if( new_d > 0)
     {
-        cout<<"\n- Конструктор Star() -";
+        cout<<"\n- РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Star() -";
         d = new_d;
     }
     
-    else  throw " Неверное значение длинны основания луча! ";
+    else  throw " РќРµРІРµСЂРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РґР»РёРЅРЅС‹ РѕСЃРЅРѕРІР°РЅРёСЏ Р»СѓС‡Р°! ";
  
 }
 
 Star::~Star()
 {
-    cout<<"\n- Деструктор Star() -";
+    cout<<"\n- Р”РµСЃС‚СЂСѓРєС‚РѕСЂ Star() -";
 }
 
 double Star::Calc_Square()
 {
     
-    double AreaPentagon = (5 * d * d) / (4 * tan(Pi/5) );  // Площадь внутреннего пятиугольника
+    double AreaPentagon = (5 * d * d) / (4 * tan(Pi/5) );  // РџР»РѕС‰Р°РґСЊ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ РїСЏС‚РёСѓРіРѕР»СЊРЅРёРєР°
 
 
-    double c = Fi * d;           // Ребро луча
+    double c = Fi * d;           // Р РµР±СЂРѕ Р»СѓС‡Р°
 
-    double p = (d+c+c) / 2;   // Полупериметр
+    double p = (d+c+c) / 2;   // РџРѕР»СѓРїРµСЂРёРјРµС‚СЂ
 
-    double AreaTriangle = sqrt( p * (p-c)*(p-c)*(p-d) );   // Формула Герона
+    double AreaTriangle = sqrt( p * (p-c)*(p-c)*(p-d) );   // Р¤РѕСЂРјСѓР»Р° Р“РµСЂРѕРЅР°
 
     
     return AreaPentagon + AreaTriangle * 5;

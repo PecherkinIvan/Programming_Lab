@@ -21,7 +21,7 @@ int main()
     
 
     V = Cyl->CalcValume(); 
-    cout<<endl<<"\n Îáüåì ôèãóðû = "<<V<<endl;
+    cout<<endl<<"\n ÐžÐ±ÑŒÐµÐ¼ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹ = "<<V<<endl;
 
     delete Cyl;
     
@@ -33,7 +33,7 @@ int main()
 
 double Select_Height()
 {
-    cout<<"\n Ââåäèòå âûñîòó ôèãóðû: ";
+    cout<<"\n Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð²Ñ‹ÑÐ¾Ñ‚Ñƒ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹: ";
     double h; cin>>h;
 
     return h;
@@ -45,10 +45,10 @@ Cylinder* Select_Figure()
     Figure* figure;
     short int v;
 
-    cout<<"\n    __ Âûáèðåòå ôèãóðó __"
-        <<"\n\n 1.) Òðåóãîëüíèê"
-        <<"\n 2.) Êðóã"
-        <<"\n 3.) Ïðàâèëüíàÿ çâåçäà"
+    cout<<"\n    __ Ð’Ñ‹Ð±Ð¸Ñ€ÐµÑ‚Ðµ Ñ„Ð¸Ð³ÑƒÑ€Ñƒ __"
+        <<"\n\n 1.) Ð¢Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸Ðº"
+        <<"\n 2.) ÐšÑ€ÑƒÐ³"
+        <<"\n 3.) ÐŸÑ€Ð°Ð²Ð¸Ð»ÑŒÐ½Ð°Ñ Ð·Ð²ÐµÐ·Ð´Ð°"
         <<"\n\n #>";
 
     cin>> v;
@@ -56,7 +56,7 @@ Cylinder* Select_Figure()
     if( v == 1)
     {
         double a,b,c;
-        cout<<"\n\n Ââåäèòå ñòîðîíû òðåóãîëüíèêà\n";
+        cout<<"\n\n Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹ Ñ‚Ñ€ÐµÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°\n";
         cin>> a >> b >> c;
 
         try
@@ -71,7 +71,7 @@ Cylinder* Select_Figure()
         }
         catch (...) 
         {	
-	        cout << "Catch ...:" << "Íåèçâåñòíàÿ îøèáêà" << endl;			    
+	        cout << "Catch ...:" << "ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ð°Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ°" << endl;			    
 	        exit(1);
 	    }
         
@@ -80,7 +80,7 @@ Cylinder* Select_Figure()
     if( v == 2)
     {
         double r;
-        cout<<"\n\n Ââåäèòå ðàäèóñ êðóãà\n";
+        cout<<"\n\n Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð´Ð¸ÑƒÑ ÐºÑ€ÑƒÐ³Ð°\n";
         cin>> r;
 
         try
@@ -95,7 +95,7 @@ Cylinder* Select_Figure()
         }
         catch (...) 
         {	
-	        cout << "Catch ...:" << "Íåèçâåñòíàÿ îøèáêà" << endl;			    
+	        cout << "Catch ...:" << "ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ð°Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ°" << endl;			    
 	        exit(1);
 	    }
 
@@ -103,7 +103,7 @@ Cylinder* Select_Figure()
     if( v == 3 )
     {
         double d;
-        cout<<"\n\n Ââåäèòå äëèííó îñíîâàíèÿ ëó÷à\n";
+        cout<<"\n\n Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð´Ð»Ð¸Ð½Ð½Ñƒ Ð¾ÑÐ½Ð¾Ð²Ð°Ð½Ð¸Ñ Ð»ÑƒÑ‡Ð°\n";
         cin>> d;
 
         try
@@ -118,7 +118,7 @@ Cylinder* Select_Figure()
         }
         catch (...) 
         {	
-	        cout << "Catch ...:" << "Íåèçâåñòíàÿ îøèáêà" << endl;			    
+	        cout << "Catch ...:" << "ÐÐµÐ¸Ð·Ð²ÐµÑÑ‚Ð½Ð°Ñ Ð¾ÑˆÐ¸Ð±ÐºÐ°" << endl;			    
 	        exit(1);
 	    }
     }
