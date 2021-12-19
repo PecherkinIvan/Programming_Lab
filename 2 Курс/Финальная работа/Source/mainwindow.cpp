@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent), ui(new Ui::MainWind
 {
 
     ui->setupUi(this);
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
-    ui->pushButton_2->setVisible(false);
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);  // Сглаживание
+    ui->pushButton_2->setVisible(false);                     // Скрытая унопка УДАЛИТЬ
 
     colcyl = new CollectionCylinder;
 
@@ -24,7 +24,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::Update_CroupBox()
 {
-    if(!mode)
+    ////  Обнавление панели выобора
+    ///
+
+    if(!mode)  ///********    Для режима добавления создания обьекта
     {
         ui->comboBox->blockSignals(true);
             ui->comboBox->clear();
@@ -32,14 +35,15 @@ void MainWindow::Update_CroupBox()
             ui->comboBox->addItem("Круг");
             ui->comboBox->addItem("Звезда");
         ui->comboBox->blockSignals(false);
+
     }
-    else
+    else    ///********    Для режима работы с колекцией
     {
         ui->comboBox->blockSignals(true);
             ui->comboBox->clear();
         ui->comboBox->blockSignals(false);
 
-        int nc=1,nt=1,ns=1;
+        int nc=1,nt=1,ns=1;   // Отдельные номера для фигур
         Cylinder* cyl;
 
         for(int i=0; i< colcyl->getNumber(); i++)
@@ -70,6 +74,8 @@ void MainWindow::Update_CroupBox()
 
 void MainWindow::Interface_Display(string type)
 {
+    ///****   Динамическое изменение правой панели в зависимости от выбора
+    ///
 
     if(type == "Круг")
     {
@@ -135,13 +141,15 @@ void MainWindow::Interface_Display(string type)
 
 }
 
+
+///////////  Отрисовка и нахождение точек        //////////////
 void MainWindow::DrawCylinder(double r, double h)
 {
     scene = new QGraphicsScene(this);
 
     ui->graphicsView->setScene(scene);
 
-    QPen blackpen(Qt::black); // Обычных линий
+    QPen blackpen(Qt::black); // Обычные линий
     blackpen.setWidth(2);
     blackpen.setColor("#1E90FF");
 
@@ -150,7 +158,7 @@ void MainWindow::DrawCylinder(double r, double h)
     dotpen.setWidth(2);
     dotpen.setColor("#1E90FF");
 
-    if(h>=r){             // Для нормального отображения большую из величин делаю 400px
+    if(h>=r*2){             // Для нормального отображения большую из величин делаю 400px
        r = (400*r)/h;
        h = 400;
     }
@@ -172,14 +180,13 @@ void MainWindow::DrawCylinder(double r, double h)
     scene->addPath(path, blackpen);  // Передння не пунктирная дуга
 
 }
-
 void MainWindow::DrawPrism(double a, double b, double c, double h)
 {
     scene = new QGraphicsScene(this);
 
     ui->graphicsView->setScene(scene);
 
-    QPen blackpen(Qt::black); // Обычных линий
+    QPen blackpen(Qt::black); // Обычные линий
     blackpen.setWidth(2);
     blackpen.setColor("#1E90FF");
 
@@ -235,14 +242,13 @@ void MainWindow::DrawPrism(double a, double b, double c, double h)
     scene->addLine(x,y,x,-h+y, blackpen);
 
 }
-
 void MainWindow::DrawStar(double d, double h)
 {
     scene = new QGraphicsScene(this);
 
     ui->graphicsView->setScene(scene);
 
-    QPen blackpen(Qt::black); // Обычных линий
+    QPen blackpen(Qt::black); // Обычные линий
     blackpen.setWidth(2);
     blackpen.setColor("#1E90FF");
 
@@ -302,7 +308,7 @@ void MainWindow::DrawStar(double d, double h)
     scene->addLine(d/2.84, -(d/5.5)-h, d/2.84, -(d/5.5), dotpen);
     scene->addLine(d/11, -(d/3.67)-h, d/11, -(d/3.67), blackpen);
 }
-
+///////////                                 //////////////
 
 void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 {
@@ -311,14 +317,12 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 
      Interface_Display(arg1.toStdString());
 
-    if(mode)
+    if(mode)  /////*********   Если режим работы с колекцией отриосовывать фигуры сразу.
     {
-        int index = ui->comboBox->currentIndex();
-        qDebug() << index;
+        int index = ui->comboBox->currentIndex();   // Узнаю текущий номер выбраной фигуры
+        Cylinder* cyl = colcyl->getCylinder(index);  // Получаю указатель на фигуру для данного пункта (номера пунктов и номера элементов совпадают)
 
-        Cylinder* cyl = colcyl->getCylinder(index);
-
-        if(cyl->getType() == 0)
+        if(cyl->getType() == 0)    // Через getType узнаю что за фигура под укзателем, для дальнейшей работы
         {
             Interface_Display("Круг");
             CircleCyl* cirCyl = static_cast<CircleCyl*>(cyl);
@@ -328,7 +332,7 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
             ui->label_8->setText(QString::number( cirCyl->getSquare() ));
             ui->label_4->setText(QString::number( cirCyl->CalcValume() ));
 
-            DrawCylinder(cirCyl->getRadius(), cirCyl->getHeight());
+            DrawCylinder(cirCyl->getRadius(), cirCyl->getHeight());   /// Подставка полученных данных для отрисовки
 
         }
         else if(cyl->getType() == 1)
@@ -366,9 +370,13 @@ void MainWindow::on_comboBox_currentTextChanged(const QString &arg1)
 
 void MainWindow::on_pushButton_clicked()
 {
+   ////************ События после нажатия кнопки   ************/////
+   ///
 
    try
    {
+        ///************ Режим изменения фигур   ************/////
+
     if(mode)
     {
         Cylinder* cyl = colcyl->getCylinder(ui->comboBox->currentIndex());
@@ -379,12 +387,12 @@ void MainWindow::on_pushButton_clicked()
             r = ui->lineEdit->text().toDouble();
             h = ui->lineEdit_4->text().toDouble();
 
-            CircleCyl* circyl = static_cast<CircleCyl*>(colcyl->getCylinder(ui->comboBox->currentIndex()));
-            cyl->setHeight(h);
+            CircleCyl* circyl = static_cast<CircleCyl*>(cyl);
+            circyl->setHeight(h);
             circyl->setRadius(r);
             S = circyl->getSquare();
             ui->label_8->setText(QString::number(S));
-            V = cyl->CalcValume();
+            V = circyl->CalcValume();
             ui->label_4->setText(QString::number(V));
 
             DrawCylinder(r, h);
@@ -397,12 +405,12 @@ void MainWindow::on_pushButton_clicked()
             c = ui->lineEdit_3->text().toDouble();
             h = ui->lineEdit_4->text().toDouble();
 
-            TriangleCyl* tricyl = static_cast<TriangleCyl*>(colcyl->getCylinder(ui->comboBox->currentIndex()));
-            cyl->setHeight(h);
+            TriangleCyl* tricyl = static_cast<TriangleCyl*>(cyl);
+            tricyl->setHeight(h);
             tricyl->setData(a,b,c);
             S = tricyl->getSquare();
             ui->label_8->setText(QString::number(S));
-            V = cyl->CalcValume();
+            V = tricyl->CalcValume();
             ui->label_4->setText(QString::number(V));
 
             DrawPrism(a,b,c,h);
@@ -414,20 +422,19 @@ void MainWindow::on_pushButton_clicked()
             d = ui->lineEdit->text().toDouble();
             h = ui->lineEdit_4->text().toDouble();
 
-            StarCyl* stacyl = static_cast<StarCyl*>(colcyl->getCylinder(ui->comboBox->currentIndex()));
-            cyl->setHeight(h);
+            StarCyl* stacyl = static_cast<StarCyl*>(cyl);
+            stacyl->setHeight(h);
             stacyl->setD(d);
             S = stacyl->getSquare();
             ui->label_8->setText(QString::number(S));
-            V = cyl->CalcValume();
+            V = stacyl->CalcValume();
             ui->label_4->setText(QString::number(V));
 
             DrawStar(d, h);
         }
 
 
-
-    }
+    }       ///************ Режим добавления фигур   ************/////
     else
     {
         if(ui->comboBox->currentIndex() == 1)
@@ -451,14 +458,11 @@ void MainWindow::on_pushButton_clicked()
                 ui->label_4->setText(QString::number(V));
                 delete basis;
 
-                if(!mode)
-                {
-                  colcyl->addCylinder(cyl);
 
-                  ui->statusbar->showMessage(" * фигура добавлена");
-                  ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
+                colcyl->addCylinder(cyl);
 
-                }
+                ui->statusbar->showMessage(" * фигура добавлена");
+                ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
 
 
                 DrawCylinder(r, h);
@@ -489,13 +493,11 @@ void MainWindow::on_pushButton_clicked()
 
                 DrawPrism(a,b,c,h);
 
-                if(!mode)
-                {
-                  colcyl->addCylinder(cyl);
 
-                  ui->statusbar->showMessage(" * фигура добавлена");
-                  ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
-                }
+                colcyl->addCylinder(cyl);
+
+                ui->statusbar->showMessage(" * фигура добавлена");
+                ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
 
 
         }
@@ -523,17 +525,14 @@ void MainWindow::on_pushButton_clicked()
                DrawStar(d, h);
 
 
-                if(!mode)
-                {
-                  colcyl->addCylinder(cyl);
+               colcyl->addCylinder(cyl);
 
-                  ui->statusbar->showMessage(" * фигура добавлена");
-                  ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
-                }
+               ui->statusbar->showMessage(" * фигура добавлена");
+               ui->statusbar->setStyleSheet("background:rgb(160, 255, 155);");
 
 
         }
-    }
+      }
    }
     catch(MyEx& e)
     {

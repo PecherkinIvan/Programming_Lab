@@ -1,3 +1,6 @@
+//////**** Класс для обработки ошибок ******//////
+///
+///
 class MyEx
 {
     private:
@@ -9,5 +12,4 @@ class MyEx
         MyEx(const char* m): msg(m){ };
 
         const char* GetMessage() {return msg;}
-
 };
